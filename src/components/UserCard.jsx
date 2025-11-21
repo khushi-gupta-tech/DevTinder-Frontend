@@ -4,7 +4,7 @@ const UserCard = ({ user }) => {
   const { firstName, lastName, photoUrl, age, gender, about } = user;
 
   return (
-    <div className="card bg-base-100 w-96 shadow-sm rounded-xl overflow-hidden">
+    <div className="card bg-base-300 w-96 shadow-sm rounded-xl overflow-hidden">
       <figure className="h-72 overflow-hidden">
         <img
           src={photoUrl}
@@ -27,8 +27,8 @@ const UserCard = ({ user }) => {
         <p className="mt-2 text-sm leading-5">{about}</p>
 
         <div className="card-actions justify-between mt-4">
-          <button className="btn btn-outline btn-sm">Ignore</button>
-          <button className="btn btn-primary btn-sm">Interested</button>
+          <button className="btn btn-primary btn-sm">Ignore</button>
+          <button className="btn btn-secondary btn-sm">Interested</button>
         </div>
       </div>
     </div>
