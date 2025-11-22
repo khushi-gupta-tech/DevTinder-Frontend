@@ -17,8 +17,8 @@ const NavBar = () => {
           withCredentials: true,
         }
       );
-      dispatch(removeUser())
-      return navigate("/login")
+      dispatch(removeUser());
+      return navigate("/login");
     } catch (err) {
       console.log(err);
     }
@@ -71,7 +71,12 @@ const NavBar = () => {
               </li>
 
               <li>
-                <a className="hover:bg-gray-100 rounded-md">Settings</a>
+                <Link
+                  to="/connections"
+                  className="hover:bg-gray-100 rounded-md"
+                >
+                  Connections
+                </Link>
               </li>
 
               <li>
