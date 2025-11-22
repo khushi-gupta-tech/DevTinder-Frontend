@@ -54,16 +54,6 @@ const Connections = () => {
                   <p className="text-gray-600 line-clamp-2">{connection.about}</p>
                 </div>
               </div>
-
-              {/* Footer Buttons */}
-              <div className="mt-4 flex gap-3">
-                <button className="flex-1 bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition">
-                  View Profile
-                </button>
-                <button className="flex-1 bg-red-500 text-white py-2 rounded-xl hover:bg-red-600 transition">
-                  Remove
-                </button>
-              </div>
             </div>
           ))}
         </div>

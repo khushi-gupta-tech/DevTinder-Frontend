@@ -78,7 +78,14 @@ const NavBar = () => {
                   Connections
                 </Link>
               </li>
-
+               <li>
+                <Link
+                  to="/requests"
+                  className="hover:bg-gray-100 rounded-md"
+                >
+                   Requests
+                </Link>
+              </li>
               <li>
                 <a
                   onClick={handleLogOut}
