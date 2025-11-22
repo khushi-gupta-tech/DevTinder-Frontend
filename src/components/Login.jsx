@@ -103,7 +103,7 @@ const Login = () => {
         {/* Password */}
         <div className="mb-6">
           <label className="block mb-1 text-sm font-medium text-black">
-            Password
+           {isLoginForm? "Password" : "Create Password"}
           </label>
           <input
             value={password}
@@ -112,6 +112,7 @@ const Login = () => {
             placeholder="Enter your password"
             onChange={(e) => setPassword(e.target.value)}
           />
+          <p className="text-gray-700 text-sm">{isLoginForm?"Forgot  your password?":""}</p>
         </div>
 
         {/* Button */}
@@ -125,9 +126,9 @@ const Login = () => {
 
         {/* Footer */}
         <p className="text-center text-sm mt-4 text-black">
-          {isLoginForm ?"Don't have an account?":"Existing User? Login Here"}
+          {isLoginForm ?"Don't have an account?":"Existing User?"}
           <a href="#" className="underline text-black hover:text-gray-700" onClick={()=> setIsLoginForm(!isLoginForm)}>
-            {isLoginForm?" Sign Up":"Login"}
+            {isLoginForm?" Sign Up":"Login Here"}
           </a>
         </p>
       </div>
