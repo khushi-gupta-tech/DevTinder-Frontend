@@ -27,7 +27,7 @@ const Feed = () => {
   return (
     <div className="flex flex-wrap justify-center gap-6 p-6">
       {feed?.length > 0 ? (
-        feed.map((user) => <UserCard key={user._id} user={user} />)
+         <UserCard key={feed._id} user={feed[0]} />
       ) : (
         <p>Loading feed...</p>
       )}
