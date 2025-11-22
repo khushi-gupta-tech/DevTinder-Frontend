@@ -5,29 +5,71 @@ import { useDispatch, useSelector } from "react-redux";
 import { addConnection } from "../redux/connectionSlice";
 
 const Connections = () => {
-  const connections = useSelector((store) => store.connection);
+  const connections = useSelector((store) => store.connection); 
   const dispatch = useDispatch();
 
   const fetchConnections = async () => {
     try {
-      const res = await axios.get(BASE_URL + "/user/connections", {
+      const res = await axios.get(`${BASE_URL}/user/connections`, {
         withCredentials: true,
       });
-      dispatch(addConnection(res.data.data));
-      console.log(res.data.data);
+
+      if (res.data?.data) {
+        dispatch(addConnection(res.data.data));
+      }
     } catch (err) {
-      console.log(err);
+      console.log("Error fetching connections:", err);
     }
   };
 
   useEffect(() => {
     fetchConnections();
-  });
+  }, []);
+
   return (
-    <div>
-      {connections.map((connection) => {
-        return <h1>{connection.firstName}</h1>;
-      })}
+    <div className="p-6 min-h-screen ">
+      <h1 className="text-3xl font-bold mb-8">Connections</h1>
+
+      {connections && connections.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {connections.map((connection) => (
+            <div
+              key={connection._id}
+              className="bg-white shadow-md rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition"
+            >
+              <div className="flex items-center gap-4">
+
+                {/* Profile Image */}
+                <img
+                  src={connection.photoUrl || "https://via.placeholder.com/80"}
+                  alt={connection.firstName}
+                  className="w-20 h-20 rounded-full object-cover border"
+                />
+
+                <div>
+                  <h2 className="text-xl font-semibold text-gray-500">
+                    {connection.firstName} {connection.lastName}
+                  </h2>
+                  <p className="text-gray-500">{connection.age} yrs</p>
+                  <p className="text-gray-600 line-clamp-2">{connection.about}</p>
+                </div>
+              </div>
+
+              {/* Footer Buttons */}
+              <div className="mt-4 flex gap-3">
+                <button className="flex-1 bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition">
+                  View Profile
+                </button>
+                <button className="flex-1 bg-red-500 text-white py-2 rounded-xl hover:bg-red-600 transition">
+                  Remove
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="text-gray-500 text-lg">No connections found.</p>
+      )}
     </div>
   );
 };
