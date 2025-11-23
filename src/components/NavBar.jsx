@@ -8,91 +8,109 @@ const NavBar = () => {
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const handleLogOut = async () => {
     try {
-      await axios.post(
-        BASE_URL + "/logout",
-        {},
-        {
-          withCredentials: true,
-        }
-      );
+      await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
       dispatch(removeUser());
-      return navigate("/login");
+      navigate("/login");
     } catch (err) {
       console.log(err);
     }
   };
 
   return (
-    <div className="navbar bg-black text-white shadow-lg px-6 py-3">
-      {/* Left Brand */}
-      <div className="flex-1">
+    <div className="w-full bg-black text-white shadow-lg px-6 py-3 flex items-center">
+      {/* LEFT LOGO */}
+      <div className="flex items-center gap-3">
         <Link
           to="/"
-          className="text-2xl font-bold tracking-wide hover:opacity-80 cursor-pointer"
+          className="flex items-center gap-2 hover:opacity-80 cursor-pointer"
         >
-          DevTinder
+          <img
+            src="logo.jpeg"
+            alt="logo"
+            className="w-10 h-10 object-cover rounded-full"
+          />
+          <h1 className="text-2xl font-bold tracking-wide">DevTinder</h1>
         </Link>
       </div>
 
-      {/* Right Section */}
-      <div className="flex items-center gap-4">
+      {/* CENTER MENU */}
+      <div className=" hidden md:flex justify-center items-center gap-10 text-lg font-normal ml-10 underline">
+        <h2 className="cursor-pointer hover:text-gray-300 transition">
+          Products
+        </h2>
+        <h2 className="cursor-pointer hover:text-gray-300 transition">Learn</h2>
+        <h2 className="cursor-pointer hover:text-gray-300 transition">
+          Safety
+        </h2>
+        <h2 className="cursor-pointer hover:text-gray-300 transition">
+          Support
+        </h2>
+        <h2 className="cursor-pointer hover:text-gray-300 transition">
+          Download
+        </h2>
+      </div>
+
+      {/* RIGHT PROFILE */}
+      <div className="flex ml-auto items-center gap-5">
         {user && (
           <div className="dropdown dropdown-end flex items-center gap-3">
             <p className="hidden sm:block text-sm opacity-90">
               Welcome, <span className="font-semibold">{user.firstName}</span>
             </p>
 
-            {/* Avatar */}
+            {/* AVATAR */}
             <div
               tabIndex={0}
               role="button"
               className="btn btn-ghost btn-circle avatar hover:bg-white/10"
             >
-              <div className="w-10 rounded-full border border-white overflow-hidden">
-                <img alt="user" src={user.photoUrl} />
+              <div className="w-10 h-10 rounded-full border border-white overflow-hidden">
+                <img src={user.photoUrl} alt="user" />
               </div>
             </div>
 
-            {/* Dropdown Menu */}
+            {/* DROPDOWN MENU */}
             <ul
-              tabIndex="-1"
-              className="menu menu-sm dropdown-content bg-white text-black rounded-xl mt-3 w-48 p-2 shadow-2xl border border-gray-200"
+              tabIndex={0}
+              className="menu menu-sm dropdown-content bg-white text-black rounded-xl mt-48 w-48 p-2 shadow-2xl border border-gray-200"
             >
               <li>
                 <Link
                   to="/profile"
-                  className="flex justify-between items-center hover:bg-gray-100 rounded-md"
+                  className="flex justify-between items-center hover:bg-gray-100 rounded-md px-2 py-2"
                 >
                   Profile
-                  <span className="badge bg-black text-white">New</span>
                 </Link>
               </li>
 
               <li>
                 <Link
                   to="/connections"
-                  className="hover:bg-gray-100 rounded-md"
+                  className="hover:bg-gray-100 rounded-md px-2 py-2"
                 >
                   Connections
                 </Link>
               </li>
-               <li>
+
+              <li>
                 <Link
                   to="/requests"
-                  className="hover:bg-gray-100 rounded-md"
+                  className="hover:bg-gray-100 rounded-md px-2 py-2"
                 >
-                   Requests
+                  Requests
                 </Link>
               </li>
+
               <li>
-                <a
+                <button
                   onClick={handleLogOut}
-                  className="hover:bg-gray-100 rounded-md"
+                  className="hover:bg-gray-100 rounded-md px-2 py-2 text-left"
                 >
                   Logout
-                </a>
+                </button>
               </li>
             </ul>
           </div>

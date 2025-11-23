@@ -12,6 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [isLoginForm, setIsLoginForm] = useState(true);
   const [error, setError] = useState("");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -25,14 +26,15 @@ const Login = () => {
         },
         { withCredentials: true }
       );
+
       dispatch(addUser(res.data));
-      return navigate("/");
+      navigate("/");
     } catch (err) {
       setError(err?.response?.data || "Something went wrong");
     }
   };
 
-  const handleSignUp = async()=>{
+  const handleSignUp = async () => {
     try {
       const res = await axios.post(
         BASE_URL + "/signup",
@@ -44,18 +46,24 @@ const Login = () => {
         },
         { withCredentials: true }
       );
+
       dispatch(addUser(res.data.data));
-      return navigate("/profile");
+      navigate("/profile");
     } catch (err) {
       setError(err?.response?.data || "Something went wrong");
     }
-  }
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black px-4">
-      <div className="w-full max-w-sm bg-white shadow-2xl rounded-xl p-6">
+    <div
+      className="min-h-screen flex items-center justify-center px-4 bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: `url("back.jpg")` }}
+    >
+      <div className="w-full max-w-sm bg-white/90 backdrop-blur-md shadow-2xl rounded-xl p-6">
         <h2 className="text-2xl font-semibold mb-6 text-center text-black">
           {isLoginForm ? "Login" : "Sign Up"}
         </h2>
+
         {!isLoginForm && (
           <>
             <div className="mb-6">
@@ -103,7 +111,7 @@ const Login = () => {
         {/* Password */}
         <div className="mb-6">
           <label className="block mb-1 text-sm font-medium text-black">
-           {isLoginForm? "Password" : "Create Password"}
+            {isLoginForm ? "Password" : "Create Password"}
           </label>
           <input
             value={password}
@@ -112,24 +120,33 @@ const Login = () => {
             placeholder="Enter your password"
             onChange={(e) => setPassword(e.target.value)}
           />
-          <p className="text-gray-700 text-sm">{isLoginForm?"Forgot  your password?":""}</p>
+          {isLoginForm && (
+            <p className="text-gray-700 text-sm mt-1 cursor-pointer hover:underline">
+              Forgot your password?
+            </p>
+          )}
         </div>
 
+        {/* Error */}
+        <p className="text-red-500 text-center mb-2">{error}</p>
+
         {/* Button */}
-        <p className="text-red-500">{error}</p>
         <button
           className="w-full py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition"
-          onClick={isLoginForm ?handleLogin:handleSignUp}
+          onClick={isLoginForm ? handleLogin : handleSignUp}
         >
-          {isLoginForm?"Login":"Sign Up"}
+          {isLoginForm ? "Login" : "Sign Up"}
         </button>
 
         {/* Footer */}
         <p className="text-center text-sm mt-4 text-black">
-          {isLoginForm ?"Don't have an account?":"Existing User?"}
-          <a href="#" className="underline text-black hover:text-gray-700" onClick={()=> setIsLoginForm(!isLoginForm)}>
-            {isLoginForm?" Sign Up":"Login Here"}
-          </a>
+          {isLoginForm ? "Don't have an account?" : "Already registered?"}
+          <span
+            className="underline ml-1 cursor-pointer hover:text-gray-700"
+            onClick={() => setIsLoginForm(!isLoginForm)}
+          >
+            {isLoginForm ? "Sign Up" : "Login Here"}
+          </span>
         </p>
       </div>
     </div>
