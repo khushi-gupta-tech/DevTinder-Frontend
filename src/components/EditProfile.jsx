@@ -4,10 +4,11 @@ import axios from "axios";
 import { BASE_URL } from "../constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../redux/userSlice";
+import toast from "react-hot-toast";
 
 const EditProfile = () => {
   const dispatch = useDispatch();
-  const currentUser = useSelector((store) => store.user); 
+  const currentUser = useSelector((store) => store.user);
 
   const [form, setForm] = useState({
     firstName: currentUser?.firstName || "",
@@ -31,7 +32,7 @@ const EditProfile = () => {
         withCredentials: true,
       });
       dispatch(addUser(res.data.data)); // update redux
-      alert(res.data.message);
+      toast.success(res.data.message);
     } catch (err) {
       setError(err.response?.data?.message || err.message);
     }
@@ -40,20 +41,16 @@ const EditProfile = () => {
   return (
     <div className="min-h-screen bg-gray-100 p-6 flex justify-center items-start">
       <div className="flex flex-col lg:flex-row gap-8 w-full max-w-6xl">
-
-        {/* LEFT SIDE → LIVE PREVIEW */}
         <div className="w-full lg:w-1/2 flex justify-center items-start">
-          <UserCard user={form} />
+          <UserCard user={form} showActions={false} />
         </div>
 
-        {/* RIGHT SIDE → EDIT FORM */}
-        <div className="bg-white shadow-lg rounded-xl p-6 w-full lg:w-1/2">
-          <h1 className="text-2xl font-semibold mb-4 text-center">
+        <div className="bg-white shadow-lg rounded-xl p-6 w-full lg:w-1/2 mt-10">
+          <h1 className="text-2xl font-semibold mb-4 text-center text-black ">
             Edit Profile
           </h1>
 
           <div className="flex flex-col gap-4">
-
             <input
               type="text"
               placeholder="First Name"

@@ -52,7 +52,6 @@ const Login = () => {
       className="min-h-screen flex items-center justify-center px-4 bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: `url("back.jpg")` }}
     >
-      {/* ⭐ FIRST VIEW — Button Only */}
       {!openForm && (
         <button
           onClick={() => setOpenForm(true)}
@@ -62,7 +61,6 @@ const Login = () => {
         </button>
       )}
 
-      {/* ⭐ SECOND VIEW — Form Appears */}
       {openForm && (
         <div className="w-full max-w-sm bg-white/90 backdrop-blur-md shadow-2xl rounded-xl p-6">
           <h2 className="text-2xl font-semibold mb-6 text-center text-black">
@@ -99,7 +97,6 @@ const Login = () => {
             </>
           )}
 
-          {/* Email */}
           <div className="mb-4">
             <label className="block mb-1 text-sm font-medium text-black">
               Email
@@ -113,7 +110,6 @@ const Login = () => {
             />
           </div>
 
-          {/* Password */}
           <div className="mb-6">
             <label className="block mb-1 text-sm font-medium text-black">
               {isLoginForm ? "Password" : "Create Password"}
@@ -126,16 +122,14 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
             {isLoginForm && (
-              <p className="text-gray-700 text-sm mt-1 cursor-pointer hover:underline">
+              <p className="text-gray-700 text-sm mt-1 cursor-pointer hover:underline ml-48">
                 Forgot your password?
               </p>
             )}
           </div>
 
-          {/* Error */}
           <p className="text-red-500 text-center mb-2">{error}</p>
 
-          {/* Button */}
           <button
             className="w-full py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition"
             onClick={isLoginForm ? handleLogin : handleSignUp}
@@ -143,7 +137,6 @@ const Login = () => {
             {isLoginForm ? "Login" : "Sign Up"}
           </button>
 
-          {/* Toggle */}
           <p className="text-center text-sm mt-4 text-black">
             {isLoginForm ? "Don't have an account?" : "Already registered?"}
             <span
@@ -154,7 +147,6 @@ const Login = () => {
             </span>
           </p>
 
-          {/* Back Button */}
           <p
             onClick={() => setOpenForm(false)}
             className="text-center mt-3 text-sm text-gray-700 underline cursor-pointer"

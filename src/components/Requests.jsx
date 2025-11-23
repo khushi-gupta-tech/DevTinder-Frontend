@@ -8,7 +8,6 @@ const Requests = () => {
   const requests = useSelector((store) => store.request);
   const dispatch = useDispatch();
 
-  // FIXED: corrected route spelling from "reveiw" → "review"
   const reviewRequest = async (status, _id) => {
     try {
       await axios.post(
@@ -39,18 +38,17 @@ const Requests = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black text-white p-6">
+    <div className="min-h-screen bg-black text-white p-6 flex flex-col items-center">
       <h1 className="text-4xl font-bold mb-6">Requests</h1>
 
       {requests && requests.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="flex flex-col items-center gap-6 w-full">
           {requests.map((request) => (
             <div
               key={request._id}
-              className="bg-[#111] text-white rounded-xl p-5 shadow-md border border-gray-600 hover:shadow-lg transition"
+              className="bg-[#111] text-white rounded-xl p-5 shadow-md border border-gray-600 hover:shadow-lg transition w-full max-w-md"
             >
               <div className="flex items-center gap-4">
-                {/* Profile Image */}
                 <img
                   src={
                     request.fromUserId.photoUrl ||
@@ -60,7 +58,6 @@ const Requests = () => {
                   className="w-16 h-16 rounded-full object-cover border border-white"
                 />
 
-                {/* User Info */}
                 <div>
                   <h2 className="text-xl font-semibold">
                     {request.fromUserId.firstName}{" "}
@@ -69,7 +66,9 @@ const Requests = () => {
                   <p className="text-gray-300">
                     Age: {request.fromUserId.age}
                   </p>
-                  <p className="text-gray-400">{request.fromUserId.about}</p>
+                  <p className="text-gray-400">
+                    {request.fromUserId.about}
+                  </p>
                 </div>
               </div>
 

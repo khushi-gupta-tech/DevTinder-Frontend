@@ -33,7 +33,6 @@ const Body = () => {
   useEffect(() => {
     fetchUser();
 
-    // REMOVE SPLASH AFTER 3 SECONDS
     const timer = setTimeout(() => {
       setLoadingSplash(false);
     }, 1000);
@@ -41,12 +40,10 @@ const Body = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // 👉 SHOW SPLASH SCREEN FIRST
   if (loadingSplash) {
     return <SplashScreen />;
   }
 
-  // 👉 SHOW APP AFTER 3 SEC
   return (
     <div className="min-h-screen bg-black text-white">
       <NavBar />

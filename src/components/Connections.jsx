@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addConnection } from "../redux/connectionSlice";
 
 const Connections = () => {
-  const connections = useSelector((store) => store.connection); 
+  const connections = useSelector((store) => store.connection);
   const dispatch = useDispatch();
 
   const fetchConnections = async () => {
@@ -27,19 +27,17 @@ const Connections = () => {
   }, []);
 
   return (
-    <div className="p-6 min-h-screen ">
+    <div className="p-6 min-h-screen flex items-center flex-col">
       <h1 className="text-3xl font-bold mb-8">Connections</h1>
 
       {connections && connections.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="flex flex-col items-center gap-6 w-full">
           {connections.map((connection) => (
             <div
               key={connection._id}
-              className="bg-white shadow-md rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition"
+              className="bg-white shadow-md rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition w-full max-w-md"
             >
               <div className="flex items-center gap-4">
-
-                {/* Profile Image */}
                 <img
                   src={connection.photoUrl || "https://via.placeholder.com/80"}
                   alt={connection.firstName}
@@ -51,7 +49,9 @@ const Connections = () => {
                     {connection.firstName} {connection.lastName}
                   </h2>
                   <p className="text-gray-500">{connection.age} yrs</p>
-                  <p className="text-gray-600 line-clamp-2">{connection.about}</p>
+                  <p className="text-gray-600 line-clamp-2">
+                    {connection.about}
+                  </p>
                 </div>
               </div>
             </div>

@@ -25,11 +25,11 @@ const Feed = () => {
   }, []);
 
   return (
-    <div className="flex flex-wrap justify-center gap-6 p-6">
+    <div className="flex flex-wrap justify-center gap-6 p-6 min-h-screen ">
       {feed?.length > 0 ? (
-         <UserCard key={feed._id} user={feed[0]} />
+        <UserCard key={feed._id} user={feed[0]} showActions={true} />
       ) : (
-        <p>Loading feed...</p>
+        <p>No More Feed Available</p>
       )}
     </div>
   );

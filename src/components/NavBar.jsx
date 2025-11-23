@@ -21,7 +21,6 @@ const NavBar = () => {
 
   return (
     <div className="w-full bg-black text-white shadow-lg px-6 py-3 flex items-center">
-      {/* LEFT LOGO */}
       <div className="flex items-center gap-3">
         <Link
           to="/"
@@ -36,7 +35,6 @@ const NavBar = () => {
         </Link>
       </div>
 
-      {/* CENTER MENU */}
       <div className=" hidden md:flex justify-center items-center gap-10 text-lg font-normal ml-10 underline">
         <h2 className="cursor-pointer hover:text-gray-300 transition">
           Products
@@ -53,15 +51,13 @@ const NavBar = () => {
         </h2>
       </div>
 
-      {/* RIGHT PROFILE */}
       <div className="flex ml-auto items-center gap-5">
         {user && (
           <div className="dropdown dropdown-end flex items-center gap-3">
-            <p className="hidden sm:block text-sm opacity-90">
+            <p className=" text-sm opacity-90">
               Welcome, <span className="font-semibold">{user.firstName}</span>
             </p>
 
-            {/* AVATAR */}
             <div
               tabIndex={0}
               role="button"
@@ -72,7 +68,6 @@ const NavBar = () => {
               </div>
             </div>
 
-            {/* DROPDOWN MENU */}
             <ul
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-white text-black rounded-xl mt-48 w-48 p-2 shadow-2xl border border-gray-200"

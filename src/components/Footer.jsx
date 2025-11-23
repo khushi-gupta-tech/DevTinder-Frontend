@@ -2,10 +2,8 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-black text-gray-300 py-8 px-6 border-t border-white/10 mt-10">
+    <footer className="w-full bg-black text-gray-300 py-8 px-6 border-t border-white/10 mt-10 ">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-
-        {/* LEFT SECTION */}
         <div className="flex items-center gap-3">
           <img
             src="logo.jpeg"
@@ -20,25 +18,39 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* RIGHT SECTION SOCIAL ICONS */}
         <div className="flex gap-6">
           <a className="hover:text-white transition">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-              viewBox="0 0 24 24" fill="currentColor">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
               <path d="M24 4.557c-.883.392-1.832.656-2.828..."></path>
             </svg>
           </a>
 
           <a className="hover:text-white transition">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-              viewBox="0 0 24 24" fill="currentColor">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
               <path d="M19.615 3.184c-3.604-.246-11.631..."></path>
             </svg>
           </a>
 
           <a className="hover:text-white transition">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-              viewBox="0 0 24 24" fill="currentColor">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
               <path d="M9 8h-3v4h3v12h5v-12h3.642l..."></path>
             </svg>
           </a>
