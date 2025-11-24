@@ -31,7 +31,13 @@ const Body = () => {
   };
 
   useEffect(() => {
-    fetchUser();
+    const isAuthPage =
+      window.location.pathname === "/login" ||
+      window.location.pathname === "/signup";
+
+    if (!isAuthPage) {
+      fetchUser();
+    }
 
     const timer = setTimeout(() => {
       setLoadingSplash(false);

@@ -35,7 +35,7 @@ const NavBar = () => {
         </Link>
       </div>
 
-      <div className=" hidden md:flex justify-center items-center gap-10 text-lg font-normal ml-10 underline">
+      <div className=" hidden lg:flex justify-center items-center gap-10 text-lg font-normal ml-10 underline">
         <h2 className="cursor-pointer hover:text-gray-300 transition">
           Products
         </h2>

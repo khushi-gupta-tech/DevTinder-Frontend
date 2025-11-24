@@ -32,30 +32,34 @@ const Connections = () => {
 
       {connections && connections.length > 0 ? (
         <div className="flex flex-col items-center gap-6 w-full">
-          {connections.map((connection) => (
-            <div
-              key={connection._id}
-              className="bg-white shadow-md rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition w-full max-w-md"
-            >
-              <div className="flex items-center gap-4">
-                <img
-                  src={connection.photoUrl || "https://via.placeholder.com/80"}
-                  alt={connection.firstName}
-                  className="w-20 h-20 rounded-full object-cover border"
-                />
+          {connections
+            .filter((c) => c && c._id)
+            .map((connection) => (
+              <div
+                key={connection._id}
+                className="bg-white shadow-md rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition w-full max-w-md"
+              >
+                <div className="flex items-center gap-4">
+                  <img
+                    src={
+                      connection.photoUrl || "https://via.placeholder.com/80"
+                    }
+                    alt={connection.firstName}
+                    className="w-20 h-20 rounded-full object-cover border"
+                  />
 
-                <div>
-                  <h2 className="text-xl font-semibold text-gray-500">
-                    {connection.firstName} {connection.lastName}
-                  </h2>
-                  <p className="text-gray-500">{connection.age} yrs</p>
-                  <p className="text-gray-600 line-clamp-2">
-                    {connection.about}
-                  </p>
+                  <div>
+                    <h2 className="text-xl font-semibold text-gray-500">
+                      {connection.firstName} {connection.lastName}
+                    </h2>
+                    <p className="text-gray-500">{connection.age} yrs</p>
+                    <p className="text-gray-600 line-clamp-2">
+                      {connection.about}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
       ) : (
         <p className="text-gray-500 text-lg">No connections found.</p>
