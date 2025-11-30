@@ -98,7 +98,14 @@ const NavBar = () => {
                   Requests
                 </Link>
               </li>
-
+              <li>
+                <Link
+                  to="/premium"
+                  className="flex justify-between items-center hover:bg-gray-100 rounded-md px-2 py-2"
+                >
+                  Premium
+                </Link>
+              </li>
               <li>
                 <button
                   onClick={handleLogOut}
