@@ -1,4 +1,38 @@
+import axios from "axios";
+import { BASE_URL } from "../constants";
+
 const Premium = () => {
+  const handleBuyClick = async (type) => {
+    const order = await axios.post(
+      BASE_URL + "/payment/create",
+      {
+        membershipType:type,
+      },
+      { withCredentials: true }
+    );
+    
+    // It sholud open the razorpay Dialog Box
+     const {amount,keyId,currency,notes,orderId} = order.data
+
+      const options  = {
+         key:keyId,
+         amount,
+         currency,
+         name:"Dev Tinder",
+         description:"Connect to other developers",
+         order_id:orderId,
+         prefill:{
+            name:notes.firstName + " " + notes.lastName,
+            email:notes.emailId,
+         },
+         theme:{
+            color:"#F37254",
+         },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+  };
   return (
     <div className="w-full flex flex-col items-center p-10 gap-10 bg-base-200 min-h-screen mt-5">
       <h1 className="text-4xl font-bold mb-4">Choose Your Premium Plan</h1>
@@ -13,7 +47,12 @@ const Premium = () => {
             <li>- Blue Tick</li>
             <li>- 3 months</li>
           </ul>
-          <button className="btn btn-primary w-full mt-auto">Buy Silver</button>
+          <button
+            onClick={() => handleBuyClick("silver")}
+            className="btn btn-primary w-full mt-auto"
+          >
+            Buy Silver
+          </button>
         </div>
 
         <div className="divider lg:divider-horizontal">OR</div>
@@ -27,7 +66,12 @@ const Premium = () => {
             <li>- Blue Tick</li>
             <li>- 6 months</li>
           </ul>
-          <button className="btn btn-accent w-full mt-auto">Buy Gold</button>
+          <button
+            onClick={() => handleBuyClick("gold")}
+            className="btn btn-accent w-full mt-auto"
+          >
+            Buy Gold
+          </button>
         </div>
       </div>
     </div>
