@@ -1,39 +1,53 @@
 import axios from "axios";
 import { BASE_URL } from "../constants";
+import { useState } from "react";
 
 const Premium = () => {
+  const [isUserPremium, setIsUserPremium] = useState(false);
+
+  const verifyPremiumUser = async () => {
+    const res = await axios.get(BASE_URL + "/premium/verify", {
+      withCredentials: true,
+    });
+    if (res.data.isPremium) {
+      setIsUserPremium(true);
+    }
+  };
   const handleBuyClick = async (type) => {
     const order = await axios.post(
       BASE_URL + "/payment/create",
       {
-        membershipType:type,
+        membershipType: type,
       },
       { withCredentials: true }
     );
-    
+
     // It sholud open the razorpay Dialog Box
-     const {amount,keyId,currency,notes,orderId} = order.data
+    const { amount, keyId, currency, notes, orderId } = order.data;
 
-      const options  = {
-         key:keyId,
-         amount,
-         currency,
-         name:"Dev Tinder",
-         description:"Connect to other developers",
-         order_id:orderId,
-         prefill:{
-            name:notes.firstName + " " + notes.lastName,
-            email:notes.emailId,
-         },
-         theme:{
-            color:"#F37254",
-         },
-      };
+    const options = {
+      key: keyId,
+      amount,
+      currency,
+      name: "Dev Tinder",
+      description: "Connect to other developers",
+      order_id: orderId,
+      prefill: {
+        name: notes.firstName + " " + notes.lastName,
+        email: notes.emailId,
+      },
+      theme: {
+        color: "#F37254",
+      },
+      handler: verifyPremiumUser,
+    };
 
-      const rzp = new window.Razorpay(options);
-      rzp.open();
+    const rzp = new window.Razorpay(options);
+    rzp.open();
   };
-  return (
+  return isUserPremium ? (
+    "You're are already a premium user"
+  ) : (
     <div className="w-full flex flex-col items-center p-10 gap-10 bg-base-200 min-h-screen mt-5">
       <h1 className="text-4xl font-bold mb-4">Choose Your Premium Plan</h1>
 
