@@ -27,7 +27,7 @@ const NavBar = () => {
           className="flex items-center gap-2 hover:opacity-80 cursor-pointer"
         >
           <img
-            src="logo.jpeg"
+            src={"logo.jpeg"}
             alt="logo"
             className="w-10 h-10 object-cover rounded-full"
           />
