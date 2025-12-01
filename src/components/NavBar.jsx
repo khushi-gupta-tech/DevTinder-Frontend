@@ -54,6 +54,7 @@ const NavBar = () => {
       <div className="flex ml-auto items-center gap-5">
         {user && (
           <div className="dropdown dropdown-end flex items-center gap-3">
+            <h1>{user.isPremium ? "✅":"" }</h1>
             <p className=" text-sm opacity-90">
               Welcome, <span className="font-semibold">{user.firstName}</span>
             </p>

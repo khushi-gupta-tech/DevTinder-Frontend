@@ -6,51 +6,68 @@ const Premium = () => {
   const [isUserPremium, setIsUserPremium] = useState(false);
 
   const verifyPremiumUser = async () => {
-    const res = await axios.get(BASE_URL + "/premium/verify", {
-      withCredentials: true,
-    });
-    if (res.data.isPremium) {
-      setIsUserPremium(true);
+    try {
+      const res = await axios.get(BASE_URL + "/premium/verify", {
+        withCredentials: true,
+      });
+      console.log(res)
+      if (res.data.isPremium) {
+        setIsUserPremium(true);
+      }
+    } catch (error) {
+      console.error("Error verifying premium user:", error);
     }
   };
+
   useEffect(() => {
     verifyPremiumUser();
   }, []);
-  
+
   const handleBuyClick = async (type) => {
-    const order = await axios.post(
-      BASE_URL + "/payment/create",
-      {
-        membershipType: type,
-      },
-      { withCredentials: true }
-    );
+    try {
+      const order = await axios.post(
+        BASE_URL + "/payment/create",
+        { membershipType: type },
+        { withCredentials: true }
+      );
 
-    // It sholud open the razorpay Dialog Box
-    const { amount, keyId, currency, notes, orderId } = order.data;
+      const { amount, keyId, currency, notes, orderId } = order.data;
 
-    const options = {
-      key: keyId,
-      amount,
-      currency,
-      name: "Dev Tinder",
-      description: "Connect to other developers",
-      order_id: orderId,
-      prefill: {
-        name: notes.firstName + " " + notes.lastName,
-        email: notes.emailId,
-      },
-      theme: {
-        color: "#F37254",
-      },
-      handler: verifyPremiumUser,
-    };
+      const options = {
+        key: keyId,
+        amount,
+        currency,
+        name: "Dev Tinder",
+        description: "Connect to other developers",
+        order_id: orderId,
+        prefill: {
+          name: notes.firstName + " " + notes.lastName,
+          email: notes.emailId,
+        },
+        theme: {
+          color: "#F37254",
+        },
+        handler: verifyPremiumUser,
+      };
 
-    const rzp = new window.Razorpay(options);
-    rzp.open();
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (error) {
+      console.error("Error creating order:", error);
+    }
   };
+
   return isUserPremium ? (
-    "You're are already a premium user"
+    <div className="flex items-center justify-center min-h-screen bg-base-200">
+      <div className="bg-white shadow-lg rounded-2xl p-10 text-center">
+        <h1 className="text-4xl font-bold mb-4 text-green-600">
+          You Are A Premium User!
+        </h1>
+        <p className="text-gray-600">
+          Thank you for supporting us. Enjoy your premium features.
+        </p>
+      </div>
+    </div>
   ) : (
     <div className="w-full flex flex-col items-center p-10 gap-10 bg-base-200 min-h-screen mt-5">
       <h1 className="text-4xl font-bold mb-4">Choose Your Premium Plan</h1>
