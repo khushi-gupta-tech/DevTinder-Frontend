@@ -1,6 +1,6 @@
 import axios from "axios";
 import { BASE_URL } from "../constants";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Premium = () => {
   const [isUserPremium, setIsUserPremium] = useState(false);
@@ -13,6 +13,10 @@ const Premium = () => {
       setIsUserPremium(true);
     }
   };
+  useEffect(() => {
+    verifyPremiumUser();
+  }, []);
+  
   const handleBuyClick = async (type) => {
     const order = await axios.post(
       BASE_URL + "/payment/create",
