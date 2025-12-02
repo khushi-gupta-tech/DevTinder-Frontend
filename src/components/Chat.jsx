@@ -4,16 +4,39 @@ import { createSocketConnection } from "../utils/socket";
 import { useSelector } from "react-redux";
 
 const Chat = () => {
-  const { id: targetUserId } = useParams();
+  const { targetUserId } = useParams();
   const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState("");
 
   const user = useSelector((store) => store.user);
   const userId = user?._id;
 
   useEffect(() => {
+    if (!userId) {
+      return;
+    }
     const socket = createSocketConnection();
     socket.emit("joinChat", { userId, targetUserId });
-  }, []);
+
+    socket.on("messageReceived", ({ firstName, text }) => {
+      setMessages((messages) => [...messages, { firstName, text }]);
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, [userId, targetUserId]);
+
+  const sendMessage = () => {
+    const socket = createSocketConnection();
+    socket.emit("sendMessage", {
+      firstName: user.firstName,
+      userId,
+      targetUserId,
+      text: newMessage,
+    });
+    setNewMessage("");
+  };
 
   return (
     <div
@@ -35,15 +58,33 @@ const Chat = () => {
       </h1>
 
       {/* MESSAGES */}
-      <div className="flex-1 overflow-y-auto p-5 text-white space-y-3">
+      <div className="flex-1 overflow-y-auto p-5 space-y-4">
         {messages.length === 0 ? (
-          <p className="text-gray-400 text-center">No messages yet...</p>
+          <p className="text-gray-400 text-center italic">No messages yet...</p>
         ) : (
-          messages.map((msg, index) => (
-            <div key={index} className="bg-gray-800 p-3 rounded-lg">
-              <p>{msg}</p>
-            </div>
-          ))
+          messages.map((msg, index) => {
+            const isMe = msg.isSender; // <-- Use your own condition
+
+            return (
+              <div
+                key={index}
+                className={`flex ${isMe ? "justify-end" : "justify-start"}`}
+              >
+                <div
+                  className={`max-w-xs md:max-w-sm lg:max-w-md p-3 rounded-2xl shadow 
+              ${isMe ? "bg-blue-600 text-white" : "bg-gray-800 text-gray-200"}`}
+                >
+                  <p className="text-xs text-gray-300 mb-1">{msg.firstName}</p>
+                  <p className="text-sm leading-relaxed break-words">
+                    {msg.text}
+                  </p>
+                  <p className="text-[10px] text-gray-400 mt-1 text-right">
+                    {msg.time || ""}
+                  </p>
+                </div>
+              </div>
+            );
+          })
         )}
       </div>
 
@@ -51,6 +92,8 @@ const Chat = () => {
       <div className="p-4 border-t border-gray-700 flex items-center gap-2 bg-gray-800">
         <input
           type="text"
+          value={newMessage}
+          onChange={(e) => setNewMessage(e.target.value)}
           placeholder="Type your message..."
           className="
             flex-1 
@@ -76,6 +119,7 @@ const Chat = () => {
             hover:bg-blue-700 
             transition
           "
+          onClick={sendMessage}
         >
           Send
         </button>
