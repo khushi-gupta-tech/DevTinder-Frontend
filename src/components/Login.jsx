@@ -55,7 +55,7 @@ const Login = () => {
       {!openForm && (
         <button
           onClick={() => setOpenForm(true)}
-          className="xl:px-11  px-11 bg-pink-800 xl:py-5 py-11 bg-black/80 text-white xl:text-xl text-5xl rounded-4xl shadow-xl hover:bg-black transition backdrop-blur-sm xl:mt-48  mt-96"
+          className="xl:px-15  px-8  bg-pink-800 xl:py-7 py-6 hover:bg-black/80 text-white xl:text-xl text-5xl rounded-4xl shadow-xl  transition backdrop-blur-sm xl:mt-48  mt-80"
         >
           Create account
         </button>
@@ -121,11 +121,6 @@ const Login = () => {
               placeholder="Enter your password"
               onChange={(e) => setPassword(e.target.value)}
             />
-            {isLoginForm && (
-              <p className="text-gray-700 text-sm mt-1 cursor-pointer hover:underline ml-48">
-                Forgot your password?
-              </p>
-            )}
           </div>
 
           <p className="text-red-500 text-center mb-2">{error}</p>
