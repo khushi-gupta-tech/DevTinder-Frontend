@@ -55,7 +55,7 @@ const Login = () => {
       {!openForm && (
         <button
           onClick={() => setOpenForm(true)}
-          className="xl:px-15  px-2  bg-pink-800 xl:py-7 py-3 hover:bg-black/80 text-white xl:text-xl text-2xl rounded-4xl shadow-xl  transition backdrop-blur-sm xl:mt-48  mt-60"
+          className="xl:px-15  px-4  bg-pink-800 xl:py-7 py-4 hover:bg-black/80 text-white xl:text-xl text-2xl rounded-4xl shadow-xl  transition backdrop-blur-sm xl:mt-48  mt-60"
         >
           Create account
         </button>
