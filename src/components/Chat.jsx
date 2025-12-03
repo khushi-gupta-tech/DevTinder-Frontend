@@ -13,18 +13,19 @@ const Chat = () => {
   const user = useSelector((store) => store.user);
   const userId = user?._id;
 
-  const fetchChatMessages = async () => {
-    const chat = await axios.get(BASE_URL + "/chat/" + targetUserId, {
-      withCredentials: true,
-    });
-
-    const chatMessages = chat?.data?.messages.map((msg) => {
-      return { firstName: msg?.senderId?.firstName, text: msg?.text };
-    });
-    setMessages(chatMessages);
-  };
-
   useEffect(() => {
+    const fetchChatMessages = async () => {
+      const chat = await axios.get(BASE_URL + "/chat/" + targetUserId, {
+        withCredentials: true,
+      });
+
+      const chatMessages = chat?.data?.messages.map((msg) => {
+        return { firstName: msg?.senderId?.firstName, text: msg?.text };
+      });
+
+      setMessages(chatMessages);
+    };
+
     fetchChatMessages();
   }, []);
 
@@ -85,7 +86,11 @@ const Chat = () => {
             return (
               <div
                 key={index}
-                className={`flex ${isMe ? "justify-end" : "justify-start"}`}
+                className={`flex chat ${
+                  user.firstName === msg.firstName
+                    ? "chat-end justify-end"
+                    : "chat-start justify-start"
+                }`}
               >
                 <div
                   className={`max-w-xs md:max-w-sm lg:max-w-md p-3 rounded-2xl shadow 
